@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\Videos\**" />
+    <EmbeddedResource Remove="Resources\Videos\**" />
+    <None Remove="Resources\Videos\**" />
+    <Page Remove="Resources\Videos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Fonts\Poppins-Regular.ttf" />
     <None Remove="Resources\bezier.png" />
     <None Remove="Resources\creativity.png" />
@@ -23,9 +30,6 @@
     <None Remove="Resources\standard-model.png" />
     <None Remove="Resources\star.png" />
     <None Remove="Resources\train-network.png" />
-    <None Remove="Resources\Videos\Bezier.wmv" />
-    <None Remove="Resources\Videos\Gravity.mp4" />
-    <None Remove="Resources\Videos\Gravity.wmv" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,22 +43,17 @@
 
   <ItemGroup>
     <Resource Include="Fonts\Poppins-Regular.ttf" />
-    <Resource Include="Resources\bezier.png" />
     <Resource Include="Resources\creativity.png" />
     <Resource Include="Resources\cross.png" />
     <Resource Include="Resources\data-set.png" />
     <Resource Include="Resources\forward.png" />
-    <Resource Include="Resources\gravity.png" />
     <Resource Include="Resources\home.png" />
     <Resource Include="Resources\input.png" />
     <Resource Include="Resources\minimize.png" />
     <Resource Include="Resources\project-icon.png" />
     <Resource Include="Resources\settings.png" />
-    <Resource Include="Resources\standard-model.png" />
     <Resource Include="Resources\star.png" />
     <Resource Include="Resources\train-network.png" />
-    <Resource Include="Resources\Videos\Bezier.wmv" />
-    <Resource Include="Resources\Videos\Gravity.wmv" />
   </ItemGroup>
 
   <ItemGroup>
