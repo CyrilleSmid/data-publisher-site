@@ -1,0 +1,27 @@
+﻿<Application x:Class="WPFUI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WPFUI"
+             xmlns:viewModel="clr-namespace:WPFUI.ViewModels"
+             xmlns:view="clr-namespace:WPFUI.Views"
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/ColorTheme.xaml"/>
+                <ResourceDictionary Source="Themes/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/TextBoxTheme.xaml"/>
+
+                <ResourceDictionary Source="Themes/DefaultScrollBar.xaml"/>
+                <ResourceDictionary Source="Themes/DefaultButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/DefaultUserControlTheme.xaml"/>
+                <ResourceDictionary Source="Themes/DefaultCheckBox.xaml"/>
+                <ResourceDictionary Source="Themes/DefaultSlider.xaml"/>
+                <ResourceDictionary Source="Themes/DefaultDataGrid.xaml"/>
+                <ResourceDictionary Source="Themes/DefaultComboBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
+
