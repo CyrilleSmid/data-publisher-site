@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="Background">#373C3E</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkBackground">#242627</SolidColorBrush>
+    <SolidColorBrush x:Key="LightBackground">#43484B</SolidColorBrush>
+    <SolidColorBrush x:Key="Foreground">#FFF8E7</SolidColorBrush>
+    <SolidColorBrush x:Key="GreyForeground">#8C8C88</SolidColorBrush>
+    <SolidColorBrush x:Key="Accent">#0FA0C1</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkAccent">#213237</SolidColorBrush>
+    <SolidColorBrush x:Key="AccentNegative">#59261B</SolidColorBrush> 
+    
+    <SolidColorBrush x:Key="Red">#A64444</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkRed">#59261B</SolidColorBrush>
+    <SolidColorBrush x:Key="Green">#70B85D</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkGreen">#325940</SolidColorBrush>
+    <SolidColorBrush x:Key="Blue">#0FA0C1</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkBlue">#213237</SolidColorBrush>
+</ResourceDictionary>

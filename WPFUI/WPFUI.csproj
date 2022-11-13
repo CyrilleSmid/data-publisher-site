@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Resources\Videos\**" />
+    <EmbeddedResource Remove="Resources\Videos\**" />
+    <None Remove="Resources\Videos\**" />
+    <Page Remove="Resources\Videos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\Poppins-Regular.ttf" />
+    <None Remove="Resources\bezier.png" />
+    <None Remove="Resources\creativity.png" />
+    <None Remove="Resources\creativity2.png" />
+    <None Remove="Resources\cross.png" />
+    <None Remove="Resources\data-set.png" />
+    <None Remove="Resources\forward.png" />
+    <None Remove="Resources\gravity.png" />
+    <None Remove="Resources\home.png" />
+    <None Remove="Resources\input.png" />
+    <None Remove="Resources\minimize.png" />
+    <None Remove="Resources\project-icon.png" />
+    <None Remove="Resources\settings.png" />
+    <None Remove="Resources\standard-model.png" />
+    <None Remove="Resources\star.png" />
+    <None Remove="Resources\train-network.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="itext7" Version="7.2.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\Poppins-Regular.ttf" />
+    <Resource Include="Resources\creativity.png" />
+    <Resource Include="Resources\cross.png" />
+    <Resource Include="Resources\data-set.png" />
+    <Resource Include="Resources\forward.png" />
+    <Resource Include="Resources\home.png" />
+    <Resource Include="Resources\input.png" />
+    <Resource Include="Resources\minimize.png" />
+    <Resource Include="Resources\project-icon.png" />
+    <Resource Include="Resources\settings.png" />
+    <Resource Include="Resources\star.png" />
+    <Resource Include="Resources\train-network.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\AppSettings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppSettings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\AppSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>AppSettings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Handlers\HomePageHandlers\" />
+  </ItemGroup>
+
+</Project>
