@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for publication in publications %}
+    <article class="media content-section">
+      <img class="rounded-circle article-img" src="{{ url_for('static', filename='thumbnails/' + publication.thumbnail) }}">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2">{{ publication.author.user.first_name }} {{ publication.author.user.surname }}</a>
+            <small class="text-muted">{{ publication.upload_date.strftime('%Y-%m-%d %H:%M') }}</small>
+          </div>
+          <h4><a class="article-title" href="{{ url_for('publication', publication_id=publication.id) }}">{{ publication.title }}</a></h4>
+          <p class="article-content">{{ publication.article_authors }}</p>
+        </div>
+      </article>
+    {% endfor %}
+{% endblock %}
