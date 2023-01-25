@@ -4,14 +4,17 @@ import regex as re
 START_PATTERN = r'a ?b ?s ?t ?r ?a ?c ?t' 
 END_PATTERN = ' Elsevier Ltd.'
 
-def read_first_page(pdf_path):
+def read_pages(pdf_path, page_nums=[0]):
     with open(pdf_path,'rb') as f:   
         pdfReader = PyPDF2.PdfFileReader(f)
-        pageObj = pdfReader.getPage(0)
-        return pageObj.extractText()
+        text = ''
+        for page_num in page_nums:
+            pageObj = pdfReader.getPage(page_num)
+            text += pageObj.extractText() + '\n'
+        return text
 
 def extract_abstract_text(pdf_path):
-    first_page = read_first_page(pdf_path)
+    first_page = read_pages(pdf_path)
     first_page = first_page.replace('  ', ' ')
     first_page = first_page.replace('\n', ' ')
 

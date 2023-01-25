@@ -64,9 +64,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class PublishForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    publication_pdf = FileField('Upload article as PDF', validators=[FileAllowed(['pdf']), DataRequired()])
-    article_authors = StringField('Article authors', validators=[DataRequired()])
+    publication_pdf = FileField('Your article in PDF format', validators=[FileAllowed(['pdf']), DataRequired()])
+    description_prompt = StringField('GTP model prompt', validators=[], default='Describe this paper in simple terms')
     submit = SubmitField('Publish')
 
 class UpdatePublicationForm(FlaskForm):
@@ -75,7 +74,7 @@ class UpdatePublicationForm(FlaskForm):
     article_authors = StringField('Aricle authors',
                            validators=[DataRequired(), Length(max=200)])
     abstract = TextAreaField('Abstract',
-                           validators=[DataRequired(), Length(max=3000)])
+                           validators=[DataRequired(), Length(max=3000)], render_kw={'style': 'height: 600px;'})
     simple_desc = TextAreaField('Simple Description',
-                           validators=[DataRequired(), Length(max=3000)])
+                           validators=[DataRequired(), Length(max=3000)], render_kw={'style': 'height: 600px;'})
     submit = SubmitField('Update')

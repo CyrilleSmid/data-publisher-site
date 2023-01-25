@@ -6,7 +6,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 import secrets
 import os
-from software_design_lab.topic_model.abstract_extractor import read_first_page, extract_abstract_text
+from software_design_lab.topic_model.abstract_extractor import read_pages, extract_abstract_text
 import openai
 from api_keys import API_KEY
 from software_design_lab.topic_model.topic_model import KerasNNTopicModelFactory, KerasNNTopicModel
@@ -121,6 +121,15 @@ def save_publication(form_doc):
     form_doc.save(doc_path)
     return doc_path, doc_fn
 
+def gpt_create_completion(prompt, max_tokens=300, temperature=0):
+    completion = openai.Completion.create(
+        model="text-davinci-003", 
+        prompt=prompt, 
+        temperature=temperature, 
+        max_tokens=max_tokens)['choices'][0]['text']
+    completion = completion.replace('  ', ' ').replace('\n', ' ').strip()
+    return completion
+
 @app.route("/publication/new", methods=['GET', 'POST'])
 @login_required
 def new_publication():
@@ -130,23 +139,31 @@ def new_publication():
     if form.validate_on_submit():
         doc_path, doc_fn = save_publication(form.publication_pdf.data)
 
-        first_page = read_first_page(doc_path).replace('  ', ' ').replace('\n', ' ')
-        prompt = 'Extract the full abstract from this publication text:\n' + first_page
-        abstract = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=500)['choices'][0]['text']
-        abstract = abstract.replace('  ', ' ')
-        abstract = abstract.replace('\n', ' ')
-        abstract = abstract.replace('Abstract: ', '').strip()
-        prompt = 'Explain this like I am 12. After that, explain it in the most pretentious, hard to read and overly complicated and convoluted way possible. After that, explain it in a confused and exaggerated manner. Format it as follows: (Like I am 12:, Overly complicated:, Confused:):' + abstract
-        simple_desc = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0, max_tokens=500)['choices'][0]['text']
-        simple_desc = simple_desc.replace('  ', ' ').strip()
-        # simple_desc = simple_desc.replace('\n', ' ')
-        # abstract = """This study aims to understand the relationship between scientific writing and scientific impact by analyzing linguistic complexity in full-text Biology and Psychology articles. Linguistic complexity is measured using 12 variables and the scientific impact of the articles is grouped into high, medium, and low categories. The results show no significant relationship between linguistic complexity and citation strata in either discipline, suggesting that textual complexity plays little role in scientific impact in the data sets. The study also discusses other factors that may affect scientific impact, such as publication venues, review cycles, and collaboration."""
+        article_text = read_pages(doc_path, [0, 1]).replace('  ', ' ').replace('\n', ' ')
+        article_text = (article_text[:3000] + '..') if len(article_text) > 3000 else article_text
+
+        prompt = 'Extract the full publication title from this text:\n' + article_text
+        title = gpt_create_completion(prompt=prompt, temperature=0, max_tokens=30)
+        title = title.replace('  ', ' ').replace('\n', ' ').strip()
+
+        prompt = 'Extract the full list of authors from this publication:\n' + article_text
+        article_authors = gpt_create_completion(prompt=prompt, temperature=0, max_tokens=30)
+        article_authors = article_authors.replace('  ', ' ').replace('\n', ' ').strip()
+
+        prompt = 'Extract the full abstract from this publication text:\n' + article_text
+        abstract = gpt_create_completion(prompt=prompt, temperature=0, max_tokens=500)
+        abstract = abstract.replace('  ', ' ').replace('\n', ' ').replace('Abstract: ', '').strip()
+
+        prompt = form.description_prompt.data + abstract
+        simple_desc = gpt_create_completion(prompt=prompt, temperature=0.5, max_tokens=1000)
+        simple_desc.strip('\n')
+
         factory = KerasNNTopicModelFactory()
         model = factory.get_topic_model()
-        topic_id = int(model.predict_topic(abstract))
+        topic_id = int(model.predict_topic(abstract.lower()))
 
         publication = Publication(
-            title=form.title.data,
+            title=title,
             thumbnail='default.jpg',
             abstract=abstract, 
             simple_desc=simple_desc,
@@ -154,12 +171,12 @@ def new_publication():
             upload_date=datetime.utcnow(),
             publication_file= doc_fn,
             author_id=current_user.id,
-            article_authors=form.article_authors.data
+            article_authors=article_authors
         )
         db.session.add(publication)
         db.session.commit()
         flash('Your article has been published', 'sucess')
-        return redirect(url_for('index'))
+        return redirect(url_for('publication', publication_id=publication.id))
     return render_template('publish.html', title='Publish', form=form)
 
 @app.route("/publication/<int:publication_id>")

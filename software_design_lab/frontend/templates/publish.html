@@ -5,32 +5,7 @@
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">{{title}}</legend>
-                <div class="form-group">
-                    {{ form.title.label(class="form-control-label") }}
-                    {% if form.title.errors %}
-                        {{ form.title(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.title.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.title(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.article_authors.label(class="form-control-label") }}
-                    {% if form.article_authors.errors %}
-                        {{ form.article_authors(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.article_authors.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.article_authors(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
+
                 <div class="form-group">
                     {{ form.publication_pdf.label() }}
                     {{ form.publication_pdf(class="form-control-file") }}
@@ -40,9 +15,28 @@
                         {% endfor %}
                     {% endif %}
                 </div>
+                <div class="form-group">
+                    {{ form.description_prompt.label(class="form-control-label") }}
+  
+                    {% if form.description_prompt.errors %}
+                        {{ form.description_prompt(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.description_prompt.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.description_prompt(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    This document will be processed by a GPT model. This might take a while.
+                </small>
             </div>
         </form>
     </div>
