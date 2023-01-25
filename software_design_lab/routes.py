@@ -9,7 +9,6 @@ import os
 from software_design_lab.topic_model.abstract_extractor import read_pages, extract_abstract_text
 import openai
 from api_keys import API_KEY
-from software_design_lab.topic_model.topic_model import KerasNNTopicModelFactory, KerasNNTopicModel
 openai.api_key = API_KEY
 
 @app.route('/')
@@ -157,10 +156,6 @@ def new_publication():
         prompt = form.description_prompt.data + abstract
         simple_desc = gpt_create_completion(prompt=prompt, temperature=0.5, max_tokens=1000)
         simple_desc.strip('\n')
-
-        factory = KerasNNTopicModelFactory()
-        model = factory.get_topic_model()
-        topic_id = int(model.predict_topic(abstract.lower()))
 
         publication = Publication(
             title=title,
