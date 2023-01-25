@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="content-section">
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{title}}</legend>
+        </fieldset>
+        <div class="form-group">
+            Author: Kuznetsov K. PRO-27 UUST student</br>
+
+            Site is designed to serve as 
+            a platform for publishing scientific papers, which are then processed by 
+            multiple machine learning models including author's own, which is used to 
+            predict article's topic and the ChatGPT model, which is used to extract
+            the abstract and explain the paper in differt ways. </br>
+            
+            To run the site with the ChatGPT model on your own you will need to put api_keys.py
+            file in the root with API_KEY constant string with your OpenAI API key.
+        </div>
+    </div>
+
+{% endblock content %}

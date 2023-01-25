@@ -1,5 +1,5 @@
 from datetime import datetime
-from software_design_lab import db, login_manager
+from data_publisher_site import db, login_manager
 from flask_login import UserMixin
 
 @login_manager.user_loader
@@ -62,14 +62,3 @@ class Publication(db.Model):
 
     def __repr__(self):   
         return f"{self.id} {self.topic} {self.upload_date}"
-
-    # db.create_all()
-    # print(db.engine.table_names())
-
-    # import pandas as pd
-    # from software_design_lab.models import User, Author, PublicationTopic, Publication
-    # df = pd.read_csv("C:\dev\Projects\software-design-lab\software_design_lab\databases\Tags.csv")
-    # for i, topic_name in df.iterrows():
-    #     topic = PublicationTopic(i, topic_name["Tags"])
-    #     db.session.add(topic)
-    # db.session.commit()

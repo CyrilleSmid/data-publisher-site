@@ -1,12 +1,12 @@
 from flask import render_template, url_for, flash, redirect, request, session, abort
-from software_design_lab import app, db, bcrypt
-from software_design_lab.forms import RegistrationFormUser, RegistrationFormAuthor, LoginForm, PublishForm, UpdateAccountForm, UpdatePublicationForm
-from software_design_lab.models import User, Author, PublicationTopic, Publication
+from data_publisher_site import app, db, bcrypt
+from data_publisher_site.forms import RegistrationFormUser, RegistrationFormAuthor, LoginForm, PublishForm, UpdateAccountForm, UpdatePublicationForm
+from data_publisher_site.models import User, Author, PublicationTopic, Publication
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 import secrets
 import os
-from software_design_lab.topic_model.abstract_extractor import read_pages, extract_abstract_text
+from data_publisher_site.topic_model.abstract_extractor import read_pages
 import openai
 from api_keys import API_KEY
 openai.api_key = API_KEY
@@ -18,8 +18,8 @@ def index():
     # print(db.engine.table_names())
 
     # import pandas as pd
-    # from software_design_lab.models import User, Author, PublicationTopic, Publication
-    # df = pd.read_csv("C:\dev\Projects\software-design-lab\software_design_lab\databases\Tags.csv")
+    # from data_publisher_site.models import User, Author, PublicationTopic, Publication
+    # df = pd.read_csv("C:\dev\Projects\software-design-lab\data_publisher_site\databases\Tags.csv")
     # for i, topic_name in df.iterrows():
     #     topic = PublicationTopic(i, topic_name["Tags"])
     #     db.session.add(topic)
